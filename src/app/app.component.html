@@ -1,0 +1,21 @@
+<h1 [@openClose]="showTitle ? 'open' : 'close'">{{title}}</h1>
+<button (click)="showTitle = !showTitle"></button>
+<form [formGroup]="formSuma" (submit)="sumar()">
+  <div class="form-control">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" formControlName="nombre" type="text">
+  </div>
+  <div formArrayName="sumandos">
+    <div class="form-control" *ngFor="let item of sumandos.controls; let i = index">
+      <label for="a">Sumando - {{i}}</label>
+      <input [id]="'sumando'+i" type="number" [formControlName]="i">
+    </div>
+    <button type="button" (click)="addSumando()">+</button>
+    <div class="form-control">
+      <p><span>Resultado:</span>{{resultado}}</p>
+    </div>  
+    <button [disabled]="!formSuma.valid" type="submit">Sumar</button>
+  </div>
+</form>
+{{formSuma.value | json}}
+
